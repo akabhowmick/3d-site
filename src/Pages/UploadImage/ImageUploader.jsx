@@ -28,11 +28,31 @@ const initial = {
     valid: false,
     errorMessage: "",
   },
+  email: { data: "", valid: false, errorMessage: "" },
 };
 
 // eslint-disable-next-line react/prop-types
 export const ImageUploader = () => {
   const [formValues, setFormValues] = useState(initial);
+
+  let submitBtnVariant;
+  let submitBtnText;
+  let submitBtnColor;
+
+  if (
+    formValues.images.valid &&
+    formValues.name.valid &&
+    formValues.message.valid &&
+    formValues.email.valid
+  ) {
+    submitBtnVariant = "contained";
+    submitBtnText = "Submit to our designers!";
+    submitBtnColor = "success";
+  } else {
+    submitBtnVariant = "outlined";
+    submitBtnText = "Complete the form to submit!";
+    submitBtnColor = "error";
+  }
 
   const messageBodyValidation = (desc) => {
     if (!(desc.length > 0)) {
@@ -56,20 +76,39 @@ export const ImageUploader = () => {
     }
   };
 
-  const titleValidation = (title) => {
-    if (!(title.length > 0)) {
+  const nameValidation = (name) => {
+    if (!(name.length > 0)) {
       setFormValues({
         ...formValues,
         name: {
-          data: title,
+          data: name,
           valid: false,
-          errorMessage: "Invalid: enter a title",
+          errorMessage: "Invalid: enter a name",
         },
       });
     } else {
       setFormValues({
         ...formValues,
-        name: { data: title, valid: true, errorMessage: "" },
+        name: { data: name, valid: true, errorMessage: "" },
+      });
+    }
+  };
+
+  const emailValidation = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (!emailRegex.test(email)) {
+      setFormValues({
+        ...formValues,
+        email: {
+          data: email,
+          valid: false,
+          errorMessage: "Invalid email address",
+        },
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        email: { data: email, valid: true, errorMessage: "" },
       });
     }
   };
@@ -82,7 +121,9 @@ export const ImageUploader = () => {
           "Client Name: " +
           formValues.name.data +
           "; Client Message: " +
-          formValues.message.data
+          formValues.message.data +
+          "; Client Email: " +
+          formValues.email.data
         }/${file.name + v4()}`
       );
       uploadBytes(imageRef, file);
@@ -113,13 +154,14 @@ export const ImageUploader = () => {
     if (
       formValues.images.valid &&
       formValues.name.valid &&
-      formValues.message.valid
+      formValues.message.valid &&
+      formValues.email.valid
     ) {
       formValues.images.data.forEach((image) => {
         uploadImageToFirebase(image);
       });
+      setFormValues(initial);
     }
-    setFormValues(initial);
   };
 
   return (
@@ -127,7 +169,7 @@ export const ImageUploader = () => {
       className="container upload-image-container top-space"
       style={{ minHeight: "66vh" }}
     >
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)}>
         <Typography
           id="modal-modal-title"
           style={{ color: "black" }}
@@ -136,6 +178,7 @@ export const ImageUploader = () => {
         >
           Add Reference Pictures for your 3D product!
         </Typography>
+        {/* name */}
         <TextField
           value={formValues.name.data}
           margin="normal"
@@ -148,12 +191,33 @@ export const ImageUploader = () => {
           autoComplete="Client Name"
           autoFocus
           onChange={(e) => {
-            titleValidation(e.target.value);
+            nameValidation(e.target.value);
           }}
         />
         {!formValues.name.valid && (
           <Typography sx={errorStyle} variant="h6" component="h6">
             {formValues.name.errorMessage}
+          </Typography>
+        )}
+        {/* email */}
+        <TextField
+          value={formValues.email.data}
+          margin="normal"
+          required
+          fullWidth
+          name="client-email"
+          label="Client Email"
+          type="text"
+          id="client-email"
+          autoComplete="Client Email"
+          autoFocus
+          onChange={(e) => {
+            emailValidation(e.target.value);
+          }}
+        />
+        {!formValues.email.valid && (
+          <Typography sx={errorStyle} variant="h6" component="h6">
+            {formValues.email.errorMessage}
           </Typography>
         )}
         <TextField
@@ -210,10 +274,11 @@ export const ImageUploader = () => {
         <Button
           type="submit"
           fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2, bgColor: "var(--blue-background)" }}
+          variant={submitBtnVariant}
+          color={submitBtnColor}
+          sx={{ mt: 3, mb: 2 }}
         >
-          Send images to our designers!
+          {submitBtnText}
         </Button>
       </Box>
     </div>

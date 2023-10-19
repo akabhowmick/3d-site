@@ -4,6 +4,8 @@ import "./SingleProduct.css";
 import Typography from "@mui/material/Typography";
 import { useCartContext } from "../../Providers/CartProvider";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { fullDetailedDetails } from "../../products/banner-products";
 
 export const SingleProduct = ({ product, comingFrom }) => {
   const {
@@ -17,6 +19,7 @@ export const SingleProduct = ({ product, comingFrom }) => {
     learnMoreLink,
   } = product;
   const { addToCart, cartItems, removeFromCart } = useCartContext();
+  const [seeFullDetails, setSeeFullDetails] = useState(false);
   const toggleInCart = () => {
     if (cartItems.find((item) => item.id === id)) {
       removeFromCart(id);
@@ -24,6 +27,61 @@ export const SingleProduct = ({ product, comingFrom }) => {
       addToCart(id);
     }
   };
+  const clickSeeFullDetailsHandler = () => {
+    setSeeFullDetails(!seeFullDetails);
+  };
+
+  const cartBtnText = cartItems.find((item) => item.id === id)
+    ? "Remove from Cart"
+    : "Add To Cart!";
+
+  const detailHandler = comingFrom === "home-page" ? shortDetails : details;
+
+  const detailsToDisplay = detailHandler.map((detail) => {
+    return (
+      <Typography
+        variant="body2"
+        color={"black"}
+        key={detail}
+        style={{ padding: "0.5rem 0", lineHeight: "1.5" }}
+      >
+        {detail}
+      </Typography>
+    );
+  });
+
+  const learnLink =
+    comingFrom === "home-page" ? (
+      <Link className="learn-more-btn" to={learnMoreLink}>
+        <button id="learn-more-btn" className="btn text-uppercase">
+          Click Here For Full Details!
+        </button>
+      </Link>
+    ) : (
+      <button
+        id="learn-more-btn"
+        className="btn text-uppercase"
+        onClick={() => clickSeeFullDetailsHandler()}
+      >
+        {seeFullDetails ? "See Less" : "See Full Details!"}
+      </button>
+    );
+
+  const fullDetails =
+    comingFrom !== "home-page" &&
+    seeFullDetails &&
+    fullDetailedDetails.map((detailType) =>
+      detailType.map((detail) => (
+        <Typography
+          variant="body2"
+          color={"black"}
+          key={detail}
+          style={{ padding: "0.5rem 0", lineHeight: "1.5" }}
+        >
+          {detail}
+        </Typography>
+      ))
+    );
 
   return (
     <div className="mt-5 mb-5">
@@ -48,59 +106,29 @@ export const SingleProduct = ({ product, comingFrom }) => {
                       <div className="ml-2">
                         {" "}
                         <small className="dis-price">
-                          ${(price * 1.4).toFixed(2)}
+                          ${(price * 1.3).toFixed(2)}
                         </small>{" "}
-                        <span>40% OFF</span>{" "}
+                        <span>30% OFF</span>{" "}
                       </div>
                     </div>
                   </div>
                   <p className="about">{desc}</p>
-                  {comingFrom === "home-page"
-                    ? shortDetails.map((detail) => {
-                        return (
-                          <Typography
-                            variant="body2"
-                            color={"black"}
-                            key={detail}
-                            style={{ padding: "0.5rem 0", lineHeight: "1.5" }}
-                          >
-                            {detail}
-                          </Typography>
-                        );
-                      })
-                    : details.map((detail) => {
-                        return (
-                          <Typography
-                            variant="body2"
-                            color={"black"}
-                            key={detail}
-                            style={{ padding: "0.5rem 0", lineHeight: "1.5" }}
-                          >
-                            {detail}
-                          </Typography>
-                        );
-                      })}
+                  {detailsToDisplay}
+                  {fullDetails}
+                  {learnLink}
                   <div className="cart mt-4 align-items-center product-buttons">
                     <button
                       className="btn text-uppercase mr-2 px-4 btn btn-2 btn-sep icon-cart"
                       onClick={() => toggleInCart()}
                     >
-                      {cartItems.find((item) => item.id === id)
-                        ? "Remove from Cart"
-                        : "Add To Cart!"}
+                      {cartBtnText}
                     </button>
                     {comingFrom === "home-page" && (
-                      <button
-                        className="btn text-uppercase"
-                        style={{
-                          marginLeft: "1rem",
-                          marginTop: "1rem",
-                        }}
-                      >
-                        <Link className="learn-more-btn" to={learnMoreLink}>
+                      <Link className="learn-more-btn" to={learnMoreLink}>
+                        <button className="btn text-uppercase">
                           Learn More!
-                        </Link>
-                      </button>
+                        </button>
+                      </Link>
                     )}
                   </div>
                 </div>

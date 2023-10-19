@@ -41,7 +41,11 @@ export default function Checkout() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <Container component="main" maxWidth="sm" sx={{ mb: 4, paddingTop: "5rem" }}>
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ mb: 4, paddingTop: "5rem" }}
+      >
         <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -49,7 +53,11 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper
+            id="check-out-stepper"
+            activeStep={activeStep}
+            sx={{ pt: 3, pb: 5 }}
+          >
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -63,9 +71,8 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                We have emailed your order confirmation, and will send you an
+                update when your order has shipped.
               </Typography>
             </React.Fragment>
           ) : (

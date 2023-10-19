@@ -4,9 +4,10 @@ import { bannerProducts } from "../../products/banner-products";
 import { homePageImages } from "../../products/imagesForCarousel";
 import { ImageCarousel } from "../../Components/ImageCarousel";
 import { Slide, Fade } from "react-awesome-reveal";
+import { aboutUs } from "../../products/siteText";
 
 export const Home = () => {
-  const subheaders = ["Front Facade", "Full House", "Accessories"];
+  // const subheaders = ["Front Facade", "Full House", "Accessories"];
   return (
     <>
       <div className="hero">
@@ -18,7 +19,7 @@ export const Home = () => {
           <div className="block-reveal">
             <h2 className="section-header">
               <Fade cascade damping={1e-1}>
-                Featured Products:
+                FEATURED PRODUCTS
               </Fade>
             </h2>
           </div>
@@ -32,7 +33,7 @@ export const Home = () => {
                 <div className="products-display-product" key={product.id}>
                   <h4 className="product-subheader">
                     <Fade cascade damping={1e-2}>
-                      {subheaders[product.id - 1] + ":"}
+                      {product.type.toLocaleUpperCase()}
                     </Fade>
                   </h4>
                   <hr className="line-below-products" />
@@ -47,6 +48,29 @@ export const Home = () => {
               );
             }
           })}
+        </div>
+
+        <div className="about-section">
+          <div className="about-flex">
+            <iframe
+              id="main-video"
+              src="https://www.youtube.com/embed/gUpL471-EQg"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+            <div className="about-us-text">
+              <h2>ABOUT US</h2>
+              {aboutUs.map((paragraph, index) => {
+                return (
+                  <div className="about-section-paragraph" key={index}>
+                    <p>{paragraph}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
     </>

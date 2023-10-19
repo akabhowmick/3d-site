@@ -1,10 +1,10 @@
 .sidecart {
-  width: 340px;
-  min-width: 340px;
+  width: 320px;
+  min-width: 320px;
   height: 100vh;
   position: fixed;
   overflow: auto !important;
-  right: -340px;
+  right: -320px;
   z-index: 9000;
   transition: 0.2s ease;
 }

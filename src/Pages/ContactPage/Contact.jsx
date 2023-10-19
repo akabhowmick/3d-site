@@ -1,9 +1,14 @@
+import { Button } from "@mui/material";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Contact.css";
 
 export const Contact = () => {
   const { register } = useForm();
-
+  const [file, setFile] = useState();
+  const imagesValidation = (e) => {
+    setFile(URL.createObjectURL(e.target.files[0]));
+  };
   return (
     <div className="top-space">
       <h2 className="section-header top-space">GET IN TOUCH!</h2>
@@ -40,9 +45,27 @@ export const Contact = () => {
           placeholder="Message"
           {...register("Message", { required: true })}
         />
-        <input type="hidden" name="_subject" value="New inquiry from www.print3dverse.com!"/>
-        <input type="hidden" name="_next" value="http://127.0.0.1:5173/thanks" />
-
+        <input
+          type="hidden"
+          name="_subject"
+          value="New inquiry from www.print3dverse.com!"
+        />
+        <input
+          type="hidden"
+          name="_next"
+          value="https://print3dverse.com/thanks"
+        />
+        <Button variant="contained" component="label">
+          Upload File
+          <input
+            type="file"
+            name="attachment"
+            accept="image/png, image/jpeg"
+            hidden
+            onChange={(e) => imagesValidation(e)}
+          />
+        </Button>
+        <img src={file} />
         <input type="submit" className="btn-blue" />
       </form>
     </div>

@@ -14,10 +14,13 @@ import { NavLink, Outlet, Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 
 const pages = [
-  { name: "Front-Facace", address: "/front-facade" },
+  { name: "Home", address: "/home" },
+  { name: "Front-Facade", address: "/front-facade" },
   { name: "Full-House", address: "/full-house" },
   { name: "Accessories", address: "/accessories" },
   { name: "Contact-Us", address: "/contact-us" },
+  { name: "Checkout", address: "/checkout" },
+  { name: "Upload-Image", address: "/upload-image" },
 ];
 
 export const Navbar = () => {
@@ -46,7 +49,11 @@ export const Navbar = () => {
     <>
       <div className="root-layout">
         <header>
-          <AppBar position="sticky" id="sticky" sx={{ backgroundColor: color, color: "black" }}>
+          <AppBar
+            position="sticky"
+            id="sticky"
+            sx={{ backgroundColor: color, color: "black" }}
+          >
             <Container maxWidth="xl">
               <Toolbar disableGutters>
                 <img className="navbar-logo" src={logo} alt="logo" />
@@ -151,26 +158,34 @@ export const Navbar = () => {
                     alignItems: { xs: "none", md: "center" },
                   }}
                 >
-                  {pages.map((page) => (
-                    <Button
-                      id="navbar-page"
-                      key={page.name}
-                      onClick={handleCloseNavMenu}
-                      sx={{
-                        my: 2,
-                        display: "block",
-                      }}
-                    >
-                      <NavLink
-                        sx={{
-                          color: color === "transparent" ? "blue" : "white",
-                        }}
-                        to={page.address}
-                      >
-                        {page.name}
-                      </NavLink>
-                    </Button>
-                  ))}
+                  {pages.map((page) => {
+                    if (
+                      !(
+                        page.name === "Checkout" || page.name === "Upload-Image"
+                      )
+                    ) {
+                      return (
+                        <Button
+                          id="navbar-page"
+                          key={page.name}
+                          onClick={handleCloseNavMenu}
+                          sx={{
+                            my: 2,
+                            display: "block",
+                          }}
+                        >
+                          <NavLink
+                            sx={{
+                              color: color === "transparent" ? "blue" : "white",
+                            }}
+                            to={page.address}
+                          >
+                            {page.name}
+                          </NavLink>
+                        </Button>
+                      );
+                    }
+                  })}
                 </Box>
               </Toolbar>
             </Container>

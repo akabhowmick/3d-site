@@ -72,9 +72,11 @@ export default function Review() {
           method="POST"
         >
           <input type="hidden" name="_subject" value="Complete Order for Queens Finest Prints!" />
-          <input type="hidden" name="_next" value="http://127.0.0.1:5173/upload-image" />
+          <input type="hidden" name="_next" value="https://print3dverse.com/upload-image" />
           <input type="hidden" name="_template" value="table" />
           <input type='hidden' name='Name' value={user.firstName + " " + user.lastName}/>
+          <input type='hidden' name='Email' value={user.email}/>
+          <input type='hidden' name='Phone' value={user.phone}/>
           <input type='hidden' name='Order-Number' value={order}/>
           <input type='hidden' name='Address' value={addresses.join(", ")}/>
           <input type='hidden' name='Total-Cost' value={"$"+finalTotal}/>

@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
       cartTotal += item.price * item.quantity;
     });
     setTotal(cartTotal);
-    setFinalTotal((cartTotal * 1.0875 + 5).toFixed(2))
+    setFinalTotal((cartTotal * 1.0875 + 5).toFixed(2));
   }, [cartItems]);
 
   useEffect(() => {
@@ -50,7 +50,9 @@ export const CartProvider = ({ children }) => {
     const changeAmount = changeType === "addOne" ? 1 : -1;
     const newCartItems = cartItems.map((item) => {
       if (item.id === id) {
-        return { ...item, quantity: item.quantity + changeAmount };
+        if (item.quantity + changeAmount > 0) {
+          return { ...item, quantity: item.quantity + changeAmount };
+        }
       } else {
         return item;
       }
@@ -69,7 +71,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         changeItemQuantity,
-        finalTotal
+        finalTotal,
       }}
     >
       {children}
@@ -87,6 +89,6 @@ export const useCartContext = () => {
     addToCart: context.addToCart,
     removeFromCart: context.removeFromCart,
     changeItemQuantity: context.changeItemQuantity,
-    finalTotal: context.finalTotal
+    finalTotal: context.finalTotal,
   };
 };

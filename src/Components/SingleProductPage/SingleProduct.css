@@ -27,6 +27,15 @@
   background-color: #da0606 !important;
   border-color: #da0606 !important;
 }
+
+.btn-danger {
+  background-color: #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+.btn-danger:hover {
+  background-color: #da0606 !important;
+  border-color: #da0606 !important;
+}
 .btn-danger:focus {
   box-shadow: none;
 }
@@ -38,6 +47,14 @@
   #product-row > * {
     max-width: 100vw;
   }
+}
+
+.product-buttons {
+  display: flex;
+  gap: 10px;
+  /* justify-content: center; */
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .product-buttons button.btn,
@@ -53,6 +70,22 @@
   color: var(--red-background);
 }
 
-.learn-more-btn{
+.learn-more-btn {
   cursor: pointer;
+}
+
+#learn-more-btn {
+  background-color: var(--blue-background);
+  color: white;
+}
+
+#learn-more-btn:hover {
+  background-color: white;
+  color: var(--blue-background);
+}
+
+@media screen and (max-width: 900px) {
+  .product-buttons {
+    justify-content: center;
+  }
 }

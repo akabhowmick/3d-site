@@ -7,7 +7,6 @@
 
 /* Navbar */
 #navbar-page {
-  text-decoration: underline;
   text-decoration-color: var(--blue-background);
 }
 
@@ -17,11 +16,17 @@
   color: var(--red-background);
 }
 
+#navbar-page:hover, #navbar-page:hover a{
+  background-color: var(--blue-background);
+  color: white;
+  border-radius: 0;
+}
+
 /* change */
-#navbar-page a:hover,
 #navbar-page a.active {
   background-color: var(--blue-background);
   color: white;
+  box-shadow: none;
 }
 
 #navbar-logo:hover {

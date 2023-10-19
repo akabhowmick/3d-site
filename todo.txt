@@ -1,0 +1,4 @@
+Deploy: 
+- npm run build
+- redirects file to be included 
+- /*    /index.html   200

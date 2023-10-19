@@ -3,7 +3,7 @@ import { products } from "../../products/products";
 
 export const FullHome = () => {
   const displayProducts = products.filter(
-    (product) => product.type === "full"
+    (product) => product.type === "full house rendering"
   );
   return (
     <div className="top-space">

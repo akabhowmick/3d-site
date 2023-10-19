@@ -14,7 +14,6 @@ import { Footer } from "./Sections/Footer/Footer";
 import { Contact } from "./Pages/ContactPage/Contact";
 import { Home } from "./Pages/HomePage/Home";
 import PageNotFound from "./Pages/404Page/PageNotFound";
-import { AboutUs } from "./Pages/AboutUsPage/AboutUs";
 import Checkout from "./Pages/CheckoutPage/Checkout";
 import FrontHome from "./Pages/FrontHomePage/FrontHome";
 import { FullHome } from "./Pages/FullHomePage/FullHome";
@@ -36,10 +35,9 @@ const router = createBrowserRouter(
       <Route path="full-house" element={<FullHome />} />
       <Route path="accessories" element={<Accessories />} />
       <Route path="contact-us" element={<Contact />} />
-      <Route path="about-us" element={<AboutUs />} />
       <Route path="checkout" element={<Checkout />} />
       <Route path="thanks" element={<ThankYou />} />
-      <Route path="upload-image" element={<ImageUploader/>} />
+      <Route path="upload-image" element={<ImageUploader />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
@@ -60,3 +58,4 @@ function App() {
 }
 
 export default App;
+

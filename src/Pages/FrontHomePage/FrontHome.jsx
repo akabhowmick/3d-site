@@ -3,7 +3,7 @@ import { products } from "../../products/products";
 
 export default function FrontHome() {
   const displayProducts = products.filter(
-    (product) => product.type === "front"
+    (product) => product.type === "front facade rendering"
   );
   return (
     <div className="top-space">

@@ -1,5 +1,9 @@
+import homeImage1 from "/src/images/main/main5.png";
+import homeImage2 from "/src/images/main/main6.png";
+import homeImage3 from "/src/images/main/main8.png";
+
 export const homePageImages = [
-  "src/images/main2.png",
-  "src/images/main3.png",
-  "src/images/main1.png",
+  homeImage1,
+  homeImage2,
+  homeImage3,
 ]

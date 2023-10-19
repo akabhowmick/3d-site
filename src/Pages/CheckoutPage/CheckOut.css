@@ -1,5 +1,5 @@
 @media screen and (max-width: 425px) {
-  .css-64ubn6-MuiStepper-root {
+  #check-out-stepper {
     flex-wrap: wrap;
     gap: 10px;
   }
